@@ -1,9 +1,12 @@
+{% load blog %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ふにふーぶろぐ</title>
+    <link rel="stylesheet" href="{% static 'blog/base.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/ja/all.js"></script>
   </head>
@@ -23,7 +26,7 @@
               {% block content %}{% endblock %}
             </main>
             <aside class="column is-offset-1 is-4">
-              <!--サイドバーは後で作る-->
+              {% create_category_and_tag_list %}
             </aside>
           </div>
         </div>
