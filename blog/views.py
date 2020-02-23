@@ -1,13 +1,36 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
-from .models import Post, Comment, Category, Tag
 from django.urls import reverse_lazy
-from .forms import CommentCreateForm
+from django.db.models import Q
+from .models import Post, Comment, Category, Tag
+from .forms import CommentCreateForm, PostSearchForm
 
 # Create your views here.
 class PostList(generic.ListView):
     model = Post
     ordering = '-created_at'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = PostSearchForm(self.request.GET or None)
+        if form.is_valid():
+            key_word = form.cleaned_data.get('key_word')
+            if key_word:
+                queryset = queryset.filter(Q(title__icontains=key_word) | Q(text__icontains=key_word) | Q(category__name__icontains=key_word))
+
+            category = form.cleaned_data.get('category')
+            if category:
+                queryset = queryset.filter(category=category)
+
+            tags = form.cleaned_data.get('tags')
+            if tags:
+                queryset = queryset.filter(tags__in=tags).distinct()
+
+            user = form.cleaned_data.get('user')
+            if user:
+                queryset = queryset.filter(writer=user)
+
+        return queryset
 
 class PostDetail(generic.DetailView):
     model = Post

@@ -1,5 +1,4 @@
 {% extends 'blog/base.html' %}
-{% load static %}
 
 {% block content %}
   <article class="box">
@@ -17,7 +16,7 @@
 
   <a class="button is-primary" href="{% url 'blog:comment_create' post.pk %}">コメントする</a>
 
-  <section>
+  <section class='section'>
     {% for comment in post.comment_set.all %}
       <div class="box">
         {{ comment | linebreaks | urlize }}

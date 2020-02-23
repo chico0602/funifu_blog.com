@@ -1,14 +1,15 @@
 {% load blog %}
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ふにふーぶろぐ</title>
-    <link rel="stylesheet" href="{% static 'blog/base.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/ja/all.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/base.css' %}">
   </head>
   <body>
     <header class="hero is-primary">
@@ -25,9 +26,12 @@
             <main class="column is-7">
               {% block content %}{% endblock %}
             </main>
-            <aside class="column is-offset-1 is-4">
+
+            <aside class="column is-offset-1 is-4 menu">
               {% create_category_and_tag_list %}
+              {% create_search_form request %}
             </aside>
+
           </div>
         </div>
       </div>

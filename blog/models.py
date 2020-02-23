@@ -32,4 +32,4 @@ class Comment(models.Model):
     target = models.ForeignKey(Post, on_delete=models.PROTECT, verbose_name='どの記事へのコメントか')
 
     def __str__(self):
-        return self.text[:20]
+        return self.text

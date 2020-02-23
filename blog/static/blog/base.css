@@ -1,4 +1,5 @@
 header{
   background-image: url(images/usagi.png);
-  color: red;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
