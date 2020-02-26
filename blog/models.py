@@ -28,7 +28,9 @@ class Post(models.Model):
         return self.title
 
 class Comment(models.Model):
+    name = models.CharField('お名前', max_length=255)
     text = models.TextField('本文')
+    created_at = models.DateTimeField('作成日', auto_now_add=True)
     target = models.ForeignKey(Post, on_delete=models.PROTECT, verbose_name='どの記事へのコメントか')
 
     def __str__(self):

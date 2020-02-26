@@ -9,7 +9,7 @@ from .forms import CommentCreateForm, PostSearchForm
 class PostList(generic.ListView):
     model = Post
     ordering = '-created_at'
-    paginate_by = 1
+    paginate_by = 5
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -51,7 +51,7 @@ class CommentCreate(generic.CreateView):
 class PostCategoryList(generic.ListView):
     model = Post
     ordering = '-created_at'
-    paginate_by = 1
+    paginate_by = 5
 
     def get_queryset(self):
         category = get_object_or_404(Category, pk=self.kwargs['pk'])
@@ -60,7 +60,7 @@ class PostCategoryList(generic.ListView):
 class PostTagList(generic.ListView):
     model = Post
     ordering = '-created_at'
-    paginate_by = 1
+    paginate_by = 5
 
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs['pk'])

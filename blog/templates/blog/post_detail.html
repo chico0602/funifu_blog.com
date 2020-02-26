@@ -2,16 +2,14 @@
 
 {% block content %}
   <article class="box">
-    <h1>{{post.title}}</h1>
-    <p>投稿者：{{post.writer}}</p>
-    <p>作成日：{{post.created_at}}</p>
-    <p>更新日：{{post.update_at}}</p>
-    <p>カテゴリ：{{post.category}}</p>
-    <p>タグ：{% for tag in post.tags.all %}{{tag}},{% endfor %}</p>
-    <hr>
-    <div>
+    <h1 class="posttitle">{{post.title}}</h1>
+    <div class=text>
       {{ post.text| linebreaks | urlize }}
     </div>
+    <hr>
+    <p class="small">作成日：{{post.created_at}}</p>
+    <p class="small">カテゴリ：{{post.category}}</p>
+    <p class="small">タグ：  {% for tag in post.tags.all %}<span class="tag is-warning is-light">{{tag}}</span>,{% endfor %}</p>
   </article>
 
   <a class="button is-primary" href="{% url 'blog:comment_create' post.pk %}">コメントする</a>
@@ -19,7 +17,8 @@
   <section class='section'>
     {% for comment in post.comment_set.all %}
       <div class="box">
-        {{ comment | linebreaks | urlize }}
+        {{ comment.text | linebreaks | urlize }}
+        <p class="comment"> {{ comment.name }} {{comment.created_at}}</p>
       </div>
     {% endfor %}
   </section>

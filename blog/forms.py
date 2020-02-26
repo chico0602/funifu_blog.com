@@ -8,8 +8,9 @@ class CommentCreateForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('text',)
+        fields = ('name','text',)
         widgets = {
+            'name': forms.TextInput(attrs={'class':'input'}),
             'text': forms.Textarea(attrs={'class': 'textarea'})
         }
 

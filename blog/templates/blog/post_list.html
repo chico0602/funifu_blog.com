@@ -1,31 +1,29 @@
 {% extends 'blog/base.html' %}
-{% load static %}
+{% load blog %}
 
 {% block content %}
   {% for post in post_list %}
       <article class="box">
           <h1> <a href="{% url 'blog:post_detail' post.pk %}">{{post.title}}</a> </h1>
-          <p>投稿者：{{post.writer}}</p>
-          <p>作成日：{{post.created_at}}</p>
-          <p>更新日：{{post.update_at}}</p>
-          <p>カテゴリ：{{post.category}}</p>
-          <p>タグ：{% for tag in post.tags.all %}{{tag}},{% endfor %}</p>
+          <p class="small">作成日：{{post.created_at}}</p>
+          <p class="small">カテゴリ：{{post.category}}</p>
+          <p class="small">タグ：{% for tag in post.tags.all %}<span class="tag is-warning is-light">{{tag}}</span>,{% endfor %}</p>
       </article>
    {% endfor %}
 
    {% if page_obj.has_previous %}
-      <a href="?page={{page_obj.previous_page_number}}">前へ</a>
+      <a href="?{% url_replace request 'page' page_obj.previous_page_number %}">前へ</a>
    {% endif %}
 
    {% for num in page_obj.paginator.page_range %}
       {% if page_obj.number == num %}
         <span>{{num}}</span>
       {% else %}
-        <a href="?page={{num}}">{{num}}</a>
+        <a href="?{% url_replace request 'page' num %}">{{num}}</a>
       {% endif %}
    {% endfor %}
 
    {% if page_obj.has_next %}
-      <a href="?page={{page_obj.next_page_number}}">次へ</a>
+      <a href="?{% url_replace request 'page' page_obj.next_page_number %}">次へ</a>
    {% endif %}
 {% endblock %}
