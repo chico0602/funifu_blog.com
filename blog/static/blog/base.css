@@ -24,7 +24,7 @@
   padding-bottom: 3rem;
 }
 .text{
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 }
 .comment{
   font-size: small;
@@ -32,4 +32,14 @@
 }
 .small{
   font-size: small;
+}
+.reply{
+  font-size: small;
+  padding-right: 1rem
+}
+.replytext{
+  margin-left: 0.5rem;
+  border-left: 2px groove #fafafab1;
+  padding-left: 1rem;
+
 }

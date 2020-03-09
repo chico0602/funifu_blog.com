@@ -15,6 +15,7 @@ class Category(models.Model):
         return self.name
 
 class Post(models.Model):
+    photo = models.ImageField('画像', blank=True)
     title = models.CharField('タイトル', max_length=32)
     text = models.TextField('本文')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='カテゴリ')
@@ -35,3 +36,18 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+class Reply(models.Model):
+    name = models.CharField('お名前', max_length=255)
+    text = models.TextField('本文')
+    created_at = models.DateTimeField('作成日', auto_now_add=True)
+    target = models.ForeignKey(Comment, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.text
+
+class Image(models.Model):
+    title = models.CharField(max_length=255,blank=True)
+    photo = models.ImageField('画像', blank=True)
+    def __str__(self):
+        return self.title        

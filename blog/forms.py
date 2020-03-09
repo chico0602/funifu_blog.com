@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Comment, Category, Tag
+from .models import Comment, Category, Tag, Reply
 
 User = get_user_model()
 
@@ -8,6 +8,16 @@ class CommentCreateForm(forms.ModelForm):
 
     class Meta:
         model = Comment
+        fields = ('name','text',)
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'input'}),
+            'text': forms.Textarea(attrs={'class': 'textarea'})
+        }
+
+class ReplyCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Reply
         fields = ('name','text',)
         widgets = {
             'name': forms.TextInput(attrs={'class':'input'}),

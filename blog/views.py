@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.db.models import Q
-from .models import Post, Comment, Category, Tag
-from .forms import CommentCreateForm, PostSearchForm
+from .models import Post, Comment, Category, Tag, Reply
+from .forms import CommentCreateForm, PostSearchForm, ReplyCreateForm
 
 # Create your views here.
 class PostList(generic.ListView):
@@ -47,6 +47,18 @@ class CommentCreate(generic.CreateView):
         comment.target = post
         comment.save()
         return redirect('blog:post_detail', pk=post_pk)
+
+class ReplyCreate(generic.CreateView):
+    model = Reply
+    form_class = ReplyCreateForm
+
+    def form_valid(self, form):
+        comment_pk = self.kwargs['pk']
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        Reply = form.save(commit=False)
+        Reply.target = comment
+        Reply.save()
+        return redirect('blog:post_detail', pk=comment.target.pk)
 
 class PostCategoryList(generic.ListView):
     model = Post

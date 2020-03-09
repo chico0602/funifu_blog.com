@@ -2,8 +2,11 @@
 
 {% block content %}
   <article class="box">
+  <figure class="image is-16by9">
+    <img src="{{post.photo.url}}">
+  </figure>
     <h1 class="posttitle">{{post.title}}</h1>
-    <div class=text>
+    <div class='text'>
       {{ post.text| linebreaks | urlize }}
     </div>
     <hr>
@@ -19,7 +22,22 @@
       <div class="box">
         {{ comment.text | linebreaks | urlize }}
         <p class="comment"> {{ comment.name }} {{comment.created_at}}</p>
+        <div class="level-right reply">
+        <a class="level-item" aria-label="reply" href="{% url 'blog:reply_create' comment.pk %}"><span class="icon is-small">
+              <i class="fas fa-reply" aria-hidden="true"></i>
+            </span> 返信する</a>
+        </div>
+      <div class='replytext'>
+      {% for reply in comment.reply_set.all %}
+        <div class='text'>
+          {{ reply.text | linebreaks | urlize }}
+          <p class='comment'> {{ reply.name }} {{reply.created_at}}</p>
+        </div>
+      {% endfor %}
       </div>
+      </div>
+
     {% endfor %}
+
   </section>
 {% endblock %}
