@@ -7,7 +7,7 @@
   </figure>
     <h1 class="posttitle">{{post.title}}</h1>
     <div class='text'>
-      {{ post.text| linebreaks | urlize }}
+      {{ post.text| linebreaksbr | urlize }}
     </div>
     <hr>
     <p class="small">作成日：{{post.created_at}}</p>
@@ -20,7 +20,7 @@
   <section class='section'>
     {% for comment in post.comment_set.all %}
       <div class="box">
-        {{ comment.text | linebreaks | urlize }}
+        {{ comment.text | linebreaksbr | urlize }}
         <p class="comment"> {{ comment.name }} {{comment.created_at}}</p>
         <div class="level-right reply">
         <a class="level-item" aria-label="reply" href="{% url 'blog:reply_create' comment.pk %}"><span class="icon is-small">
@@ -30,7 +30,7 @@
       <div class='replytext'>
       {% for reply in comment.reply_set.all %}
         <div class='text'>
-          {{ reply.text | linebreaks | urlize }}
+          {{ reply.text | linebreaksbr | urlize }}
           <p class='comment'> {{ reply.name }} {{reply.created_at}}</p>
         </div>
       {% endfor %}
